@@ -38,7 +38,9 @@ app.use(fileUpload({
     useTempFiles: true
 }));
 
-mongoose.connect(`mongodb+srv://${userName}:M%40rch041992M@cluster0-tbg4m.mongodb.net/test?retryWrites=true&w=majority`, { useNewUrlParser: true, useUnifiedTopology: true })
+let url = process.env.MONGODB_URL || `mongodb+srv://${userName}:M%40rch041992M@cluster0-tbg4m.mongodb.net/test?retryWrites=true&w=majority`;
+
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log('Successfully connected to MongoDB Atlas');
     })
@@ -46,7 +48,7 @@ mongoose.connect(`mongodb+srv://${userName}:M%40rch041992M@cluster0-tbg4m.mongod
         console.log('Something went wrong');
         console.error(error);
     });
-
+    
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
